@@ -3,9 +3,11 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 export type Props = {
   readonly title: string;
   readonly subtitle: string;
+  readonly titleSize?: number;
+  readonly subtitleSize?: number;
 };
 
-export const MyComponent: React.FC<Props> = ({ title, subtitle }) => {
+export const MyComponent: React.FC<Props> = ({ title, subtitle, titleSize = 200, subtitleSize = 80 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
 
@@ -26,11 +28,13 @@ export const MyComponent: React.FC<Props> = ({ title, subtitle }) => {
         fontFamily: "system-ui, sans-serif",
         color: "white",
         opacity: fadeOut,
+        padding: "100px 80px",
+        textAlign: "center",
       }}
     >
       <div
         style={{
-          fontSize: 200,
+          fontSize: titleSize,
           fontWeight: 800,
           letterSpacing: -4,
           opacity: titleIn,
@@ -41,7 +45,7 @@ export const MyComponent: React.FC<Props> = ({ title, subtitle }) => {
       </div>
       <div
         style={{
-          fontSize: 80,
+          fontSize: subtitleSize,
           marginTop: 24,
           opacity: subtitleIn,
           transform: `translateY(${interpolate(subtitleIn, [0, 1], [40, 0])}px)`,
